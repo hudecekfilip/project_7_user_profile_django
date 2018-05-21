@@ -6,7 +6,7 @@ var strength = {
         4: "Strong ☻"
 }
 
-var password = document.getElementById('id_password');
+var password = document.getElementById('id_password1');
 var meter = document.getElementById('password-strength-meter');
 var text = document.getElementById('password-strength-text');
 
