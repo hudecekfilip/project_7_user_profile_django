@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block body %}
+  <form method="POST" action="">
+
+    {{ form.errors }}
+    {{ form.non_field_errors }}
+
+    {{ form.bio.label }}
+    {{ form.bio }}
+    {% if form.bio.errors %}
+      <div class="alert alert-danger" role="alert">
+        {% for error in form.username.errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {{ form.birth_date.label }}
+    {{ form.birth_date }}
+    {% if form.birth_date.errors %}
+      <div class="alert alert-danger" role="alert">
+        {% for error in form.birth_date.errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {{ form.city.label }}
+    {{ form.city }}
+    {% if form.city.errors %}
+      <div class="alert alert-danger" role="alert">
+        {% for error in form.city.errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {{ form.state.label }}
+    {{ form.state }}
+    {% if form.state.errors %}
+      <div class="alert alert-danger" role="alert">
+        {% for error in form.state.errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {{ form.country.label }}
+    {{ form.country }}
+    {% if form.country.errors %}
+      <div class="alert alert-danger" role="alert">
+        {% for error in form.country.errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {{ form.animal.label }}
+    {{ form.animal }}
+    {% if form.animal.errors %}
+      <div class="alert alert-danger" role="alert">
+        {% for error in form.animal.errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+
+    {{ form.hobby.label }}
+    {{ form.hobby }}
+    {% if form.hobby.errors %}
+      <div class="alert alert-danger" role="alert">
+        {% for error in form.hobby.errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% csrf_token %}
+    <input type="submit" class="button" />
+  </form>
+
+{% endblock %}

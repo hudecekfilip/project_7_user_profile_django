@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% load static from staticfiles %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+
+<div class="row mt-5">
+  <div class="col-8">
+      <h1>{{ current_user.first_name }} {{ current_user.last_name }}</h1>
+
+      <div class="card mb-5" style="width: 18rem;">
+        <img class="card-img-top" src="{{ avatar_picture }}" alt="avatar">
+        <div class="card-body">
+          {% if not current_user.avatar %}
+            <p class="card-text"><a href="{% url 'accounts:upload_avatar' %}">Please upload your avatar</a></p>
+          {% else %}
+            <p class="card-text"><a href="{% url 'accounts:upload_avatar' %}">change avatar</a></p>
+          {% endif %}
+        </div>
+      </div>
+
+      <h2>{{ current_user.email }}</h2>
+      {% if current_user.birth_date %}
+        <h2>{{ current_user.birth_date }}</h2>
+      {% else %}
+        <h4><a href="{% url 'accounts:edit_profile' %}">Please insert your birth date</a></h4>
+      {% endif %}
+
+      <h4>{{ current_user.bio|linebreaksbr }}</h4>
+
+  </div>
+  <div class="col-4 text-right">
+    <a class="button mr-0" href="{% url 'accounts:edit_profile' %}">Edit Profile</a>
+    <a class="button mr-0" href="{% url 'accounts:change_password' %}">Change Password</a><br />
+    {% if current_user.hobby %}
+      <div>
+        <h4>Hobbies</h4>
+        <p>{{ current_user.hobby|linebreaksbr }}</p>
+      </div>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}
