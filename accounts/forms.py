@@ -34,7 +34,7 @@ class EditSignUpForm(forms.ModelForm):
 
 
 class SignUpForm(UserCreationForm):
-    confirm_password = forms.CharField(widget=forms.PasswordInput())
+    #confirm_password = forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model = models.User
         fields = [
@@ -42,20 +42,20 @@ class SignUpForm(UserCreationForm):
             'username',
             'first_name',
             'last_name',
-            'password',
-            'confirm_password',
+            'password1',
+            'password2',
             'bio',
         ]
-        widgets = {
-            'password': forms.PasswordInput(),
-        }
+        # widgets = {
+        #     'password': forms.PasswordInput(),
+        # }
 
 
     def clean(self):
         cleaned_data = super().clean()
         username = cleaned_data.get('username')
-        password = cleaned_data.get('password')
-        confirm_password = cleaned_data.get('confirm_password')
+        password1 = cleaned_data.get('password1')
+        password2 = cleaned_data.get('password2')
         first_name = cleaned_data.get('first_name')
         last_name = cleaned_data.get('last_name')
         bio = cleaned_data.get('bio')
@@ -78,7 +78,7 @@ class SignUpForm(UserCreationForm):
 
         # password length check
         if len(password) < 15:
-            self.add_error('password', msg_short_password)
+            self.add_error('password1', msg_short_password)
 
         # Password must contain an lowercase letter
         # Password must contain an uppercase letter
@@ -90,16 +90,16 @@ class SignUpForm(UserCreationForm):
         or not len(set(string.digits).intersection(password))
         or not len(set(string.punctuation).intersection(password))
         ):
-            self.add_error('password', msg_weak_password_lowercase)
+            self.add_error('password1', msg_weak_password_lowercase)
 
-        if password in username:
-            self.add_error('password', msg_weak_password)
+        if password1 in username:
+            self.add_error('password1', msg_weak_password)
 
-        if password in first_name:
-            self.add_error('password', msg_weak_password)
+        if password1 in first_name:
+            self.add_error('password1', msg_weak_password)
 
-        if password in last_name:
-            self.add_error('password', msg_weak_password)
+        if password1 in last_name:
+            self.add_error('password1', msg_weak_password)
 
         if len(bio) < 10:
             self.add_error('bio', msg_bio)
