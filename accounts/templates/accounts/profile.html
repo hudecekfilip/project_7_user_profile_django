@@ -8,6 +8,13 @@
 <div class="row mt-5">
   <div class="col-8">
       <h1>{{ current_user.first_name }} {{ current_user.last_name }}</h1>
+      <h2>{{ current_user.city }}, {{ current_user.state }}</h2>
+      <h2>{{ current_user.email }}</h2>
+      {% if current_user.birth_date %}
+        <h2>{{ current_user.birth_date }}</h2>
+      {% else %}
+        <h4><a href="{% url 'accounts:edit_profile' %}">Please insert your birth date</a></h4>
+      {% endif %}
 
       <div class="card mb-5" style="width: 18rem;">
         <img class="card-img-top" src="{{ avatar_picture }}" alt="avatar">
@@ -20,13 +27,6 @@
         </div>
       </div>
 
-      <h2>{{ current_user.email }}</h2>
-      {% if current_user.birth_date %}
-        <h2>{{ current_user.birth_date }}</h2>
-      {% else %}
-        <h4><a href="{% url 'accounts:edit_profile' %}">Please insert your birth date</a></h4>
-      {% endif %}
-
       <h4>{{ current_user.bio|linebreaksbr }}</h4>
 
   </div>
@@ -37,6 +37,12 @@
       <div>
         <h4>Hobbies</h4>
         <p>{{ current_user.hobby|linebreaksbr }}</p>
+      </div>
+    {% endif %}
+    {% if current_user.animal %}
+      <div>
+        <h4>Animals</h4>
+        <p>{{ current_user.animal|linebreaksbr }}</p>
       </div>
     {% endif %}
 </div>
