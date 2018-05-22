@@ -1,3 +1,4 @@
+import datetime
 import string
 
 from django import forms
@@ -31,6 +32,25 @@ class EditSignUpForm(forms.ModelForm):
             'password',
             'confirm_password',
         ]
+
+    def clean(self):
+        cleaned_data = super().clean()
+        bio = cleaned_data.get('bio')
+        birth_date = cleaned_data.get('birth_date')
+
+        msg_bio = "Bio must be longer then 15 characters!"
+
+        if len(bio) < 10:
+            self.add_error('bio', msg_bio)
+
+        try:
+            print(type(birth_date))
+            datetime.datetime.strptime(str(birth_date), "%Y-%m-%d")
+        except ValueError:
+            self.add_error('birth_date', "Incorrect date")
+
+        return cleaned_data
+
 
 
 class SignUpForm(UserCreationForm):

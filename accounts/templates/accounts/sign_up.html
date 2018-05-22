@@ -7,9 +7,6 @@
 
     {% csrf_token %}
 
-    {{ form.errors }}
-    {{ form.non_field_errors }}
-
     {{ form.username.label }}
     {{ form.username }}
     {% if form.username.errors %}
