@@ -34,7 +34,6 @@ class EditSignUpForm(forms.ModelForm):
 
 
 class SignUpForm(UserCreationForm):
-    #confirm_password = forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model = models.User
         fields = [
@@ -46,9 +45,6 @@ class SignUpForm(UserCreationForm):
             'password2',
             'bio',
         ]
-        # widgets = {
-        #     'password': forms.PasswordInput(),
-        # }
 
 
     def clean(self):

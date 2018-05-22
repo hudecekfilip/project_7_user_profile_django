@@ -1,7 +1,9 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import (authenticate, login, logout,
+                                        update_session_auth_hash)
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
+from django.contrib.auth.forms import (AuthenticationForm, UserCreationForm,
+                                        PasswordChangeForm)
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -42,6 +44,10 @@ def sign_in(request):
                 user = form.user_cache
                 if user.is_active:
                     login(request, user)
+                    messages.success(
+                        request,
+                        "You have been successfully signed in!"
+                        )
                     return HttpResponseRedirect(
                         reverse('home')  # TODO: go to profile
                     )
@@ -122,11 +128,11 @@ def change_password(request):
     form = PasswordChangeForm(request.user)
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid:
+        if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('change_password')
+            return HttpResponseRedirect(reverse('accounts:show_profile'))
         else:
             messages.error(request, 'Please correct the error below.')
     else:

@@ -10,9 +10,24 @@
 
     {{ form.username.label }}
     {{ form.username }}
+    {% if form.username.errors %}
+      <div class="alert alert-danger" role="alert">
+        {% for error in form.username.errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+    {% endif %}
 
     {{ form.password.label }}
     {{ form.password }}
+    {% if form.password.errors %}
+      <div class="alert alert-danger" role="alert">
+        {% for error in form.password.errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
     <input type="submit" class="button-primary" value="Sign In">
 </form>
 {% endblock %}
