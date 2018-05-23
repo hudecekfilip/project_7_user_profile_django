@@ -29,8 +29,8 @@ class EditSignUpForm(forms.ModelForm):
             'hobby',
         ]
         exclude = [
-            'password',
-            'confirm_password',
+            'password1',
+            'password2',
         ]
 
     def clean(self):
@@ -93,7 +93,7 @@ class SignUpForm(UserCreationForm):
             self.add_error('username', msg_username)
 
         # password length check
-        if len(password) < 15:
+        if len(password1) < 15:
             self.add_error('password1', msg_short_password)
 
         # Password must contain an lowercase letter
@@ -101,10 +101,10 @@ class SignUpForm(UserCreationForm):
         # Password must contain a digit
         # Password must contain a special character
         if (
-        not len(set(string.ascii_lowercase).intersection(password))
-        or not len(set(string.ascii_uppercase).intersection(password))
-        or not len(set(string.digits).intersection(password))
-        or not len(set(string.punctuation).intersection(password))
+        not len(set(string.ascii_lowercase).intersection(password1))
+        or not len(set(string.ascii_uppercase).intersection(password1))
+        or not len(set(string.digits).intersection(password1))
+        or not len(set(string.punctuation).intersection(password1))
         ):
             self.add_error('password1', msg_weak_password_lowercase)
 
