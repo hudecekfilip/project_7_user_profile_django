@@ -38,7 +38,7 @@ class EditSignUpForm(forms.ModelForm):
         bio = cleaned_data.get('bio')
         birth_date = cleaned_data.get('birth_date')
 
-        msg_bio = "Bio must be longer then 15 characters!"
+        msg_bio = "Bio must be longer then 10 characters!"
 
         if len(bio) < 10:
             self.add_error('bio', msg_bio)
