@@ -19,13 +19,12 @@ def home(request):
 def sign_up(request):
     form = forms.SignUpForm()
     if request.method == 'POST':
-        form = forms.SignUpForm(data=request.POST)
+        form = forms.SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            user = authenticate(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password']
-            )
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
             login(request, user)
             messages.success(
                 request,
