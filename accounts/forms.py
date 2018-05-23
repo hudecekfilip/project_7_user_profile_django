@@ -72,12 +72,14 @@ class SignUpForm(UserCreationForm):
         username = cleaned_data.get('username')
         password1 = cleaned_data.get('password1')
         password2 = cleaned_data.get('password2')
+        email = cleaned_data.get('email')
         first_name = cleaned_data.get('first_name')
         last_name = cleaned_data.get('last_name')
         bio = cleaned_data.get('bio')
 
         # error messages
         msg_username = "Username already exists!"
+        msg_email = "Email already exists!"
         msg_short_password = "Password must be longer than 15 characters!"
         msg_weak_password = "Password cannot contain username, last_name or first_name"
         msg_weak_password_lowercase = ('Password must contain both upper and'
@@ -91,6 +93,14 @@ class SignUpForm(UserCreationForm):
             pass
         else:
             self.add_error('username', msg_username)
+
+        # email check
+        try:
+            match = models.User.objects.get(email=email)
+        except models.User.DoesNotExist:
+            pass
+        else:
+            self.add_error('email', msg_email)
 
         # password length check
         if len(password1) < 15:
